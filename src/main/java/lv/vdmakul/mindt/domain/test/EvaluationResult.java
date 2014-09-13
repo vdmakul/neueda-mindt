@@ -1,5 +1,8 @@
 package lv.vdmakul.mindt.domain.test;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.math.BigDecimal;
 
 public class EvaluationResult {
@@ -68,4 +71,29 @@ public class EvaluationResult {
         return errorMessage;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EvaluationResult that = (EvaluationResult) o;
+        return new EqualsBuilder().append(this.value, that.value)
+                .append(this.nonValue, that.nonValue)
+                .append(this.errorMessage, that.errorMessage)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(value).append(nonValue).append(errorMessage).toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "EvaluationResult{" +
+                "value=" + value +
+                ", nonValue='" + nonValue + '\'' +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
+    }
 }
