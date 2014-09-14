@@ -15,14 +15,9 @@ import java.math.BigDecimal;
 
 public class NeuedaCalculationService implements CalculationService {
 
-    private final String serviceUrl;
-
-    public NeuedaCalculationService() {
-        this.serviceUrl = MindtProperties.getProperty(MindtProperties.URL_PROPERTY);
-    }
-
     @Override
     public EvaluationResult calculate(Request request, BigDecimal value1, BigDecimal value2) {
+        String serviceUrl = MindtProperties.getProperty(MindtProperties.URL_PROPERTY);
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();

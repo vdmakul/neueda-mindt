@@ -1,8 +1,10 @@
 package lv.vdmakul.mindt.console;
 
 import lv.vdmakul.mindt.calculation.LocalCalculationService;
+import lv.vdmakul.mindt.calculation.NeuedaCalculationService;
 import lv.vdmakul.mindt.console.options.OptionsParsingException;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.xml.sax.SAXException;
@@ -84,5 +86,14 @@ public class ConsoleAppFunctionalTest {
         callWithArgs("-help");
         //cannot test the output, commons-cli lib very sophisticated
 //        verify(printStream).println("usage: neueda-mindt");
+    }
+
+    @Test
+    @Ignore
+    public void callRealNeuedaService() throws Exception {
+        consoleApp = new ConsoleApp(new NeuedaCalculationService(), printStream);
+        callWithArgs("-mindmap", "src/test/resources/calc_tests.mm");
+        verify(printStream).println("9 tests have been executed");
+        verify(printStream).println("All tests passed");
     }
 }
