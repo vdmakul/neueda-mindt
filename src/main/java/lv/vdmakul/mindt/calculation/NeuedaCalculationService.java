@@ -3,8 +3,8 @@ package lv.vdmakul.mindt.calculation;
 
 import com.google.gson.Gson;
 import lv.vdmakul.mindt.config.MindtProperties;
-import lv.vdmakul.mindt.domain.test.EvaluationResult;
-import lv.vdmakul.mindt.domain.test.Request;
+import lv.vdmakul.mindt.domain.EvaluationResult;
+import lv.vdmakul.mindt.domain.Request;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;

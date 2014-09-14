@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.domain.test;
+package lv.vdmakul.mindt.domain;
 
 import com.google.gson.Gson;
 import org.apache.commons.lang3.builder.EqualsBuilder;

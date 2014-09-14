@@ -1,7 +1,7 @@
 package lv.vdmakul.mindt.mindmap.treeparser;
 
+import lv.vdmakul.mindt.domain.TestPlan;
 import lv.vdmakul.mindt.domain.test.ProvidedTestPlanBuilder;
-import lv.vdmakul.mindt.domain.test.TestPlan;
 import org.junit.Before;
 import org.junit.Test;
 

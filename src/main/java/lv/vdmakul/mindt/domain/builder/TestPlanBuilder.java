@@ -1,7 +1,7 @@
-package lv.vdmakul.mindt.domain.test.builder;
+package lv.vdmakul.mindt.domain.builder;
 
-import lv.vdmakul.mindt.domain.test.TestPlan;
-import lv.vdmakul.mindt.domain.test.TestSuite;
+import lv.vdmakul.mindt.domain.TestPlan;
+import lv.vdmakul.mindt.domain.TestSuite;
 
 import java.util.ArrayList;
 import java.util.List;

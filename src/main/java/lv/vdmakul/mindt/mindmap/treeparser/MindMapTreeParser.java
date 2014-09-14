@@ -1,10 +1,10 @@
 package lv.vdmakul.mindt.mindmap.treeparser;
 
-import lv.vdmakul.mindt.domain.test.*;
-import lv.vdmakul.mindt.domain.test.builder.RequestBuilder;
-import lv.vdmakul.mindt.domain.test.builder.TestBuilder;
-import lv.vdmakul.mindt.domain.test.builder.TestPlanBuilder;
-import lv.vdmakul.mindt.domain.test.builder.TestSuiteBuilder;
+import lv.vdmakul.mindt.domain.*;
+import lv.vdmakul.mindt.domain.builder.RequestBuilder;
+import lv.vdmakul.mindt.domain.builder.TestBuilder;
+import lv.vdmakul.mindt.domain.builder.TestPlanBuilder;
+import lv.vdmakul.mindt.domain.builder.TestSuiteBuilder;
 import lv.vdmakul.mindt.mindmap.MindMapParser;
 import lv.vdmakul.mindt.mindmap.MindMapParsingException;
 
@@ -13,10 +13,10 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.InputStream;
 import java.math.BigDecimal;
 
-import static lv.vdmakul.mindt.domain.test.builder.RequestBuilder.aRequest;
-import static lv.vdmakul.mindt.domain.test.builder.TestBuilder.aTest;
-import static lv.vdmakul.mindt.domain.test.builder.TestPlanBuilder.aTestPlan;
-import static lv.vdmakul.mindt.domain.test.builder.TestSuiteBuilder.aTestSuite;
+import static lv.vdmakul.mindt.domain.builder.RequestBuilder.aRequest;
+import static lv.vdmakul.mindt.domain.builder.TestBuilder.aTest;
+import static lv.vdmakul.mindt.domain.builder.TestPlanBuilder.aTestPlan;
+import static lv.vdmakul.mindt.domain.builder.TestSuiteBuilder.aTestSuite;
 
 public class MindMapTreeParser implements MindMapParser {
 

@@ -2,7 +2,7 @@ package lv.vdmakul.mindt.console;
 
 import lv.vdmakul.mindt.calculation.CalculationService;
 import lv.vdmakul.mindt.config.MindtProperties;
-import lv.vdmakul.mindt.domain.test.TestPlan;
+import lv.vdmakul.mindt.domain.TestPlan;
 import lv.vdmakul.mindt.infrastructure.FileUtils;
 import lv.vdmakul.mindt.mindmap.treeparser.MindMapTreeParser;
 import lv.vdmakul.mindt.testing.TestExecutor;

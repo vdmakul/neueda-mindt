@@ -1,5 +1,6 @@
 package lv.vdmakul.mindt.domain.test;
 
+import lv.vdmakul.mindt.domain.TestPlan;
 import org.junit.Assert;
 import org.junit.Test;
 

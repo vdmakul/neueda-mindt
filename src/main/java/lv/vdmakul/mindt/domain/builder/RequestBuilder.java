@@ -1,7 +1,7 @@
-package lv.vdmakul.mindt.domain.test.builder;
+package lv.vdmakul.mindt.domain.builder;
 
 
-import lv.vdmakul.mindt.domain.test.Request;
+import lv.vdmakul.mindt.domain.Request;
 
 public class RequestBuilder {
     public String method;

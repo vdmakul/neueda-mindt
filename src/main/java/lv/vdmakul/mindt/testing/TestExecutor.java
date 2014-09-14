@@ -1,10 +1,10 @@
 package lv.vdmakul.mindt.testing;
 
 import lv.vdmakul.mindt.calculation.CalculationService;
-import lv.vdmakul.mindt.domain.test.EvaluationResult;
-import lv.vdmakul.mindt.domain.test.Request;
-import lv.vdmakul.mindt.domain.test.Test;
-import lv.vdmakul.mindt.domain.test.TestSuite;
+import lv.vdmakul.mindt.domain.EvaluationResult;
+import lv.vdmakul.mindt.domain.Request;
+import lv.vdmakul.mindt.domain.Test;
+import lv.vdmakul.mindt.domain.TestSuite;
 
 import java.util.List;
 import java.util.stream.Collectors;

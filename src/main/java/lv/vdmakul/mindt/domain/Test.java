@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.domain.test;
+package lv.vdmakul.mindt.domain;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

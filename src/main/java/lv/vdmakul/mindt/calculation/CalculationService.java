@@ -1,8 +1,8 @@
 package lv.vdmakul.mindt.calculation;
 
 
-import lv.vdmakul.mindt.domain.test.EvaluationResult;
-import lv.vdmakul.mindt.domain.test.Request;
+import lv.vdmakul.mindt.domain.EvaluationResult;
+import lv.vdmakul.mindt.domain.Request;
 
 import java.math.BigDecimal;
 

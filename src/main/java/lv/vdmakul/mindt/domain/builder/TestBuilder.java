@@ -1,7 +1,7 @@
-package lv.vdmakul.mindt.domain.test.builder;
+package lv.vdmakul.mindt.domain.builder;
 
-import lv.vdmakul.mindt.domain.test.EvaluationResult;
-import lv.vdmakul.mindt.domain.test.Test;
+import lv.vdmakul.mindt.domain.EvaluationResult;
+import lv.vdmakul.mindt.domain.Test;
 
 import java.math.BigDecimal;
 

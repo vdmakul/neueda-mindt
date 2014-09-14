@@ -1,12 +1,14 @@
 package lv.vdmakul.mindt.domain.test;
 
-import lv.vdmakul.mindt.domain.test.builder.RequestBuilder;
-import lv.vdmakul.mindt.domain.test.builder.TestBuilder;
+import lv.vdmakul.mindt.domain.EvaluationResult;
+import lv.vdmakul.mindt.domain.TestPlan;
+import lv.vdmakul.mindt.domain.builder.RequestBuilder;
+import lv.vdmakul.mindt.domain.builder.TestBuilder;
 
 import java.math.BigDecimal;
 
-import static lv.vdmakul.mindt.domain.test.builder.TestPlanBuilder.aTestPlan;
-import static lv.vdmakul.mindt.domain.test.builder.TestSuiteBuilder.aTestSuite;
+import static lv.vdmakul.mindt.domain.builder.TestPlanBuilder.aTestPlan;
+import static lv.vdmakul.mindt.domain.builder.TestSuiteBuilder.aTestSuite;
 
 public class ProvidedTestPlanBuilder {
 

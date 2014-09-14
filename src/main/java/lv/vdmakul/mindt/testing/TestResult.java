@@ -1,6 +1,6 @@
 package lv.vdmakul.mindt.testing;
 
-import lv.vdmakul.mindt.domain.test.EvaluationResult;
+import lv.vdmakul.mindt.domain.EvaluationResult;
 
 public class TestResult {
 

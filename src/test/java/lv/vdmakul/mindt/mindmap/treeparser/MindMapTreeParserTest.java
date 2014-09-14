@@ -1,7 +1,7 @@
 package lv.vdmakul.mindt.mindmap.treeparser;
 
-import lv.vdmakul.mindt.domain.test.TestPlan;
-import lv.vdmakul.mindt.domain.test.TestSuite;
+import lv.vdmakul.mindt.domain.TestPlan;
+import lv.vdmakul.mindt.domain.TestSuite;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,13 +58,13 @@ public class MindMapTreeParserTest {
 
         Assert.assertEquals(2, suite.tests.size());
 
-        lv.vdmakul.mindt.domain.test.Test test1 = suite.tests.get(0);
+        lv.vdmakul.mindt.domain.Test test1 = suite.tests.get(0);
         Assert.assertEquals("simple multiplication", test1.name);
         Assert.assertEquals(new BigDecimal("5"), test1.variableOne);
         Assert.assertEquals(new BigDecimal("9"), test1.variableTwo);
         Assert.assertEquals(new BigDecimal("45"), test1.expectedResult.getValue());
 
-        lv.vdmakul.mindt.domain.test.Test test2 = suite.tests.get(1);
+        lv.vdmakul.mindt.domain.Test test2 = suite.tests.get(1);
         Assert.assertEquals("multiplying negatives", test2.name);
         Assert.assertEquals(new BigDecimal("-2.3"), test2.variableOne);
         Assert.assertEquals(new BigDecimal("-6.76"), test2.variableTwo);
@@ -103,7 +103,7 @@ public class MindMapTreeParserTest {
 
         Assert.assertEquals(1, suite1.tests.size());
 
-        lv.vdmakul.mindt.domain.test.Test test1 = suite1.tests.get(0);
+        lv.vdmakul.mindt.domain.Test test1 = suite1.tests.get(0);
         Assert.assertEquals("simple multiplication", test1.name);
         Assert.assertEquals(new BigDecimal("5"), test1.variableOne);
         Assert.assertEquals(new BigDecimal("9"), test1.variableTwo);
@@ -118,7 +118,7 @@ public class MindMapTreeParserTest {
 
         Assert.assertEquals(1, suite2.tests.size());
 
-        lv.vdmakul.mindt.domain.test.Test test2 = suite2.tests.get(0);
+        lv.vdmakul.mindt.domain.Test test2 = suite2.tests.get(0);
         Assert.assertEquals("simple division", test2.name);
         Assert.assertEquals(new BigDecimal("5"), test2.variableOne);
         Assert.assertEquals(new BigDecimal("2"), test2.variableTwo);

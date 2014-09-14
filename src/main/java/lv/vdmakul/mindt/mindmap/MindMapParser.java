@@ -1,7 +1,7 @@
 package lv.vdmakul.mindt.mindmap;
 
 
-import lv.vdmakul.mindt.domain.test.TestPlan;
+import lv.vdmakul.mindt.domain.TestPlan;
 
 import java.io.InputStream;
 
