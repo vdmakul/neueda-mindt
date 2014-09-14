@@ -1,16 +1,13 @@
 package lv.vdmakul.mindt.console;
 
-import lv.vdmakul.mindt.FileUtils;
 import lv.vdmakul.mindt.calculation.CalculationService;
 import lv.vdmakul.mindt.config.MindtProperties;
 import lv.vdmakul.mindt.domain.test.TestPlan;
+import lv.vdmakul.mindt.infrastructure.FileUtils;
 import lv.vdmakul.mindt.mindmap.treeparser.MindMapTreeParser;
 import lv.vdmakul.mindt.testing.TestExecutor;
 import lv.vdmakul.mindt.testing.TestResult;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
@@ -35,7 +32,7 @@ public class MindtActions {
         helpPrinter.run();
     }
 
-    public void exportTestPlan() throws IOException, SAXException, ParserConfigurationException {
+    public void exportTestPlan() {
         InputStream inputStream = FileUtils.asInputStream(parameters.mindMapFileName);
         TestPlan testPlan = mindMapTreeParser.parseMindMap(inputStream);
         FileUtils.saverToFile(testPlan.asJson(), parameters.exportFileName);
@@ -50,11 +47,11 @@ public class MindtActions {
         MindtProperties.setProperty(MindtProperties.URL_PROPERTY, parameters.url);
     }
 
-    public void testByPlanFromFile() throws IOException {
+    public void testByPlanFromFile() {
         testBy(TestPlan.fromJson(FileUtils.loadFile(parameters.suiteFileName)));
     }
 
-    public void testByPlanFromMindMap() throws IOException, SAXException, ParserConfigurationException {
+    public void testByPlanFromMindMap() {
         InputStream inputStream = FileUtils.asInputStream(parameters.mindMapFileName);
         testBy(mindMapTreeParser.parseMindMap(inputStream));
     }

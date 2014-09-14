@@ -2,14 +2,11 @@ package lv.vdmakul.mindt.console;
 
 import lv.vdmakul.mindt.calculation.LocalCalculationService;
 import lv.vdmakul.mindt.calculation.NeuedaCalculationService;
-import lv.vdmakul.mindt.console.options.OptionsParsingException;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -22,41 +19,41 @@ public class ConsoleAppFunctionalTest {
     private PrintStream printStream;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         printStream = Mockito.spy(System.out);
         consoleApp = new ConsoleApp(new LocalCalculationService(), printStream);
     }
 
-    private void callWithArgs(String... args) throws OptionsParsingException, ParserConfigurationException, SAXException, IOException {
+    private void callWithArgs(String... args) {
         consoleApp.runWithArgs(args);
     }
 
     @Test
-    public void noArguments() throws Exception {
+    public void noArguments() {
         callWithArgs();
-        verify(printStream).println("either -mindmap or -suite option must be specified");
+        verify(printStream).println("Aborted: either -mindmap or -suite option must be specified");
     }
 
     @Test
-    public void exportWithoutMindMap() throws Exception {
+    public void exportWithoutMindMap() {
         callWithArgs("-export", "export.file");
-        verify(printStream).println("-mindmap option must be specified");
+        verify(printStream).println("Aborted: -mindmap option must be specified");
     }
 
     @Test
-    public void exportMindMapWithSuite() throws Exception {
+    public void exportMindMapWithSuite() {
         callWithArgs("-mindmap", "mindmap.file", "-export", "export.file", "-suite", "suite.file");
-        verify(printStream).println("-export option is not compatible with -suite option");
+        verify(printStream).println("Aborted: -export option is not compatible with -suite option");
     }
 
     @Test
-    public void skipTest() throws Exception {
+    public void skipTest() {
         callWithArgs("-suite", "suite.file", "-skiptest");
         verify(printStream).println("Tests were skipped");
     }
 
     @Test
-    public void test() throws Exception {
+    public void test() {
         callWithArgs("-mindmap", "src/test/resources/calc_tests.mm");
         verify(printStream).println("9 tests have been executed");
         verify(printStream).println("1 test(s) failed");
@@ -66,7 +63,7 @@ public class ConsoleAppFunctionalTest {
     }
 
     @Test
-    public void exportAndThenTest() throws Exception {
+    public void exportAndThenTest() throws IOException {
         File file = File.createTempFile("test", "json");
         file.deleteOnExit();
 
@@ -82,7 +79,7 @@ public class ConsoleAppFunctionalTest {
     }
 
     @Test
-    public void help() throws Exception {
+    public void help() {
         callWithArgs("-help");
         //cannot test the output, commons-cli lib very sophisticated
 //        verify(printStream).println("usage: neueda-mindt");
@@ -90,7 +87,7 @@ public class ConsoleAppFunctionalTest {
 
     @Test
     @Ignore
-    public void callRealNeuedaService() throws Exception {
+    public void callRealNeuedaService() {
         consoleApp = new ConsoleApp(new NeuedaCalculationService(), printStream);
         callWithArgs("-mindmap", "src/test/resources/calc_tests.mm");
         verify(printStream).println("9 tests have been executed");

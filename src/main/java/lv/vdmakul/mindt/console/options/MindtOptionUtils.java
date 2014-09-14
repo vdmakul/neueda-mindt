@@ -21,7 +21,7 @@ public class MindtOptionUtils {
         return options;
     }
 
-    public static CommandLine parseOptions(Options options, String[] args) throws OptionsParsingException {
+    public static CommandLine parseOptions(Options options, String[] args) {
         CommandLineParser parser = new BasicParser();
         CommandLine line;
         try {

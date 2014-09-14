@@ -17,23 +17,27 @@ public class NeuedaCalculationService implements CalculationService {
 
     @Override
     public EvaluationResult calculate(Request request, BigDecimal value1, BigDecimal value2) {
-        String serviceUrl = MindtProperties.getProperty(MindtProperties.URL_PROPERTY);
+        try {
+            String serviceUrl = MindtProperties.getProperty(MindtProperties.URL_PROPERTY);
 
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
-        headers.add("Accept", "application/json");
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", "application/json");
+            headers.add("Accept", "application/json");
 
-        String json = String.format("{\"variableOne\":%s, \"variableTwo\":%s}", value1, value2);
+            String json = String.format("{\"variableOne\":%s, \"variableTwo\":%s}", value1, value2);
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
-                serviceUrl + request.path,
-                HttpMethod.valueOf(request.method),
-                new HttpEntity<>(json, headers),
-                String.class);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(
+                    serviceUrl + request.path,
+                    HttpMethod.valueOf(request.method),
+                    new HttpEntity<>(json, headers),
+                    String.class);
 
-        Response response = new Gson().fromJson(responseEntity.getBody(), Response.class);
-        return EvaluationResult.valueOf(response.result);
+            Response response = new Gson().fromJson(responseEntity.getBody(), Response.class);
+            return EvaluationResult.valueOf(response.result);
+        } catch (Exception ex) {
+            return EvaluationResult.error(ex.getMessage());
+        }
     }
 
     private static class Response {

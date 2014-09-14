@@ -3,13 +3,9 @@ package lv.vdmakul.mindt.console;
 import lv.vdmakul.mindt.calculation.CalculationService;
 import lv.vdmakul.mindt.calculation.NeuedaCalculationService;
 import lv.vdmakul.mindt.console.options.MindtOptionUtils;
-import lv.vdmakul.mindt.console.options.OptionsParsingException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.io.PrintStream;
 
 import static lv.vdmakul.mindt.console.options.MindtOptionUtils.*;
@@ -19,7 +15,7 @@ public class ConsoleApp {
     private final PrintStream printStream;
     private final CalculationService calculationService;
 
-    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
+    public static void main(String[] args) {
         new ConsoleApp(new NeuedaCalculationService(), System.out).runWithArgs(args);
     }
 
@@ -28,7 +24,7 @@ public class ConsoleApp {
         this.calculationService = calculationService;
     }
 
-    protected void runWithArgs(String[] args) throws ParserConfigurationException, SAXException, IOException {
+    protected void runWithArgs(String[] args) {
         try {
             Options options = MindtOptionUtils.createDefaultOptions();
             CommandLine line = MindtOptionUtils.parseOptions(options, args);
@@ -38,12 +34,12 @@ public class ConsoleApp {
                     printStream,
                     () -> MindtOptionUtils.printHelpMessage(options, printStream));
             perform(actions, line);
-        } catch (OptionsParsingException e) {
-            printStream.println(e.getMessage());
+        } catch (Exception e) {
+            printStream.println("Aborted: " + e.getMessage());
         }
     }
 
-    private void perform(MindtActions actions, CommandLine line) throws IOException, SAXException, ParserConfigurationException {
+    private void perform(MindtActions actions, CommandLine line) {
         if (printHelpOnly(line)) {
             actions.printHelp();
             return;

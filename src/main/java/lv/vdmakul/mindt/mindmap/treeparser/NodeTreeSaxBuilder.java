@@ -1,7 +1,6 @@
 package lv.vdmakul.mindt.mindmap.treeparser;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /*package*/ class NodeTreeSaxBuilder extends DefaultHandler {
@@ -16,14 +15,14 @@ import org.xml.sax.helpers.DefaultHandler;
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         if (NODE_TAG.equals(qName)) {
             visit(attributes.getValue(TEXT_ATTRIBUTE));
         }
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         if ("node".equals(qName)) {
             leave();
         }

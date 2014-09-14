@@ -6,12 +6,10 @@ import lv.vdmakul.mindt.domain.test.builder.TestBuilder;
 import lv.vdmakul.mindt.domain.test.builder.TestPlanBuilder;
 import lv.vdmakul.mindt.domain.test.builder.TestSuiteBuilder;
 import lv.vdmakul.mindt.mindmap.MindMapParser;
-import org.xml.sax.SAXException;
+import lv.vdmakul.mindt.mindmap.MindMapParsingException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 
@@ -23,11 +21,16 @@ import static lv.vdmakul.mindt.domain.test.builder.TestSuiteBuilder.aTestSuite;
 public class MindMapTreeParser implements MindMapParser {
 
     @Override
-    public TestPlan parseMindMap(InputStream mindMapInputStream) throws ParserConfigurationException, SAXException, IOException {
+    public TestPlan parseMindMap(InputStream mindMapInputStream) {
         SAXParserFactory parserFactor = SAXParserFactory.newInstance();
-        SAXParser parser = parserFactor.newSAXParser();
-        NodeTreeSaxBuilder treeSaxBuilder = new NodeTreeSaxBuilder();
-        parser.parse(mindMapInputStream, treeSaxBuilder);
+        NodeTreeSaxBuilder treeSaxBuilder;
+        try {
+            SAXParser parser = parserFactor.newSAXParser();
+            treeSaxBuilder = new NodeTreeSaxBuilder();
+            parser.parse(mindMapInputStream, treeSaxBuilder);
+        } catch (Exception ex) {
+            throw new MindMapParsingException("MindMap parsing failed: " + ex.getMessage(), ex);
+        }
 
         return createTestPlan(treeSaxBuilder.getRoot());
     }
