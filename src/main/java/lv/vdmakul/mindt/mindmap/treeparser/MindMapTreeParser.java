@@ -50,7 +50,7 @@ public class MindMapTreeParser implements MindMapParser {
                 switch (n.attribute()) {
                     case "Request": testBuilder.withRequest(asRequest(n)); break;
                     case "Test":    testBuilder.withTest(asTest(n)); break;
-                    default: //todo warning on unknown attribute
+                    default: System.out.println("Unexpected attribute for TestSuite: " + n.attribute());//todo logging
 
                 }
             });
@@ -64,7 +64,7 @@ public class MindMapTreeParser implements MindMapParser {
                        switch (n.attribute()) {
                            case "Method": requestBuilder.withMethod(n.get("Method").toUpperCase()); break;
                            case "Path":   requestBuilder.withPath(n.get("Path")); break;
-                           default: //todo warning on unknown attribute
+                           default: System.out.println("Unexpected attribute for Request: " + n.attribute());//todo logging
                        }
                     });
         return requestBuilder.build();
@@ -78,7 +78,7 @@ public class MindMapTreeParser implements MindMapParser {
                         case "variableOne": testBuilder.withVariableOne(parseDecimal(n.get("variableOne"))); break;
                         case "variableTwo": testBuilder.withVariableTwo(parseDecimal(n.get("variableTwo"))); break;
                         case "result":      testBuilder.withExpectedResult(EvaluationResult.valueOf(n.get("result"))); break;
-                        default: //todo warning on unknown attribute
+                        default: System.out.println("Unexpected attribute for Test: " + n.attribute());//todo logging
                     }
                 });
         return testBuilder.build();
