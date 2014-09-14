@@ -1,7 +1,7 @@
 package lv.vdmakul.mindt.calculation;
 
 
-import com.eclipsesource.json.JsonObject;
+import com.google.gson.Gson;
 import lv.vdmakul.mindt.config.MindtProperties;
 import lv.vdmakul.mindt.domain.test.EvaluationResult;
 import lv.vdmakul.mindt.domain.test.Request;
@@ -37,7 +37,11 @@ public class NeuedaCalculationService implements CalculationService {
                 new HttpEntity<>(json, headers),
                 String.class);
 
-        JsonObject response = JsonObject.readFrom(responseEntity.getBody());
-        return EvaluationResult.valueOf(response.get("result").asString());
+        Response response = new Gson().fromJson(responseEntity.getBody(), Response.class);
+        return EvaluationResult.valueOf(response.result);
+    }
+
+    private static class Response {
+        public String result;
     }
 }
