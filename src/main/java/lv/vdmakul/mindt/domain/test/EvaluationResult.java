@@ -55,6 +55,12 @@ public class EvaluationResult {
         }
     }
 
+    public String getResultAsString() {
+        if (isNan()) return NAN;
+        if (isError()) return ERROR + ": " + errorMessage;
+        return value.toString();
+    }
+
     public BigDecimal getValue() {
         return value;
     }

@@ -13,4 +13,8 @@ public class TestResult {
         this.expectedResult = expectedResult;
         this.testName = testName;
     }
+
+    public boolean failed() {
+        return !expectedResult.getResultAsString().equals(actualResult.getResultAsString());
+    }
 }
