@@ -9,6 +9,9 @@ repositories {
 
 mainClassName = "lv.vdmakul.mindt.console.ConsoleApp"
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 dependencies {
     compile group: 'org.springframework', name: 'spring-web', version: '4.1.0.RELEASE'
     compile 'com.google.code.gson:gson:2.3'
