@@ -3,7 +3,7 @@ package lv.vdmakul.mindt.service;
 import lv.vdmakul.mindt.domain.TestPlan;
 import lv.vdmakul.mindt.internal.infrastructure.FileUtils;
 import lv.vdmakul.mindt.service.calculation.CalculationService;
-import lv.vdmakul.mindt.service.mindmap.treeparser.MindMapTreeParser;
+import lv.vdmakul.mindt.service.mindmap.MindMapParser;
 import lv.vdmakul.mindt.service.testing.TestExecutor;
 import lv.vdmakul.mindt.service.testing.TestResult;
 
@@ -12,17 +12,17 @@ import java.util.List;
 
 public class MindtFacade {
 
-    public final MindMapTreeParser mindMapTreeParser;
+    public final MindMapParser mindMapParser;
     public final TestExecutor testExecutor;
 
-    public MindtFacade(MindMapTreeParser mindMapTreeParser, CalculationService calculationService) {
-        this.mindMapTreeParser = mindMapTreeParser;
+    public MindtFacade(MindMapParser mindMapParser, CalculationService calculationService) {
+        this.mindMapParser = mindMapParser;
         this.testExecutor = new TestExecutor(calculationService);
     }
 
     public void exportTestPlan(String mindMapFileName, String exportFileName) {
         InputStream inputStream = FileUtils.asInputStream(mindMapFileName);
-        TestPlan testPlan = mindMapTreeParser.parseMindMap(inputStream);
+        TestPlan testPlan = mindMapParser.parseMindMap(inputStream);
         FileUtils.saverToFile(testPlan.asJson(), exportFileName);
     }
 
@@ -32,7 +32,7 @@ public class MindtFacade {
 
     public List<TestResult> testByPlanFromMindMap(String mindMapFileName) {
         InputStream inputStream = FileUtils.asInputStream(mindMapFileName);
-        return testBy(mindMapTreeParser.parseMindMap(inputStream));
+        return testBy(mindMapParser.parseMindMap(inputStream));
     }
 
     private List<TestResult> testBy(TestPlan testPlan) {
