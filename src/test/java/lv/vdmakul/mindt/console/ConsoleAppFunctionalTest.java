@@ -69,6 +69,7 @@ public class ConsoleAppFunctionalTest {
 
         callWithArgs("-mindmap", "src/test/resources/calc_tests.mm", "-export", file.getAbsolutePath(), "-skiptest");
         verify(printStream).println("Test Suite successfully exported");
+        verify(printStream).println("Tests were skipped");
 
         callWithArgs("-suite", file.getAbsolutePath());
         verify(printStream).println("9 tests have been executed");

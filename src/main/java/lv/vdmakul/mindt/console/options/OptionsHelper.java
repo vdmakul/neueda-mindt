@@ -1,6 +1,5 @@
 package lv.vdmakul.mindt.console.options;
 
-import lv.vdmakul.mindt.console.MindtActionParameters;
 import org.apache.commons.cli.*;
 
 import java.io.PrintStream;
@@ -8,7 +7,7 @@ import java.io.PrintWriter;
 
 import static lv.vdmakul.mindt.console.options.MindtOption.*;
 
-public class MindtOptionUtils {
+public class OptionsHelper {
 
     public static Options createDefaultOptions() {
         Options options = new Options();
@@ -52,26 +51,6 @@ public class MindtOptionUtils {
         return line;
     }
 
-    public static boolean skipTest(CommandLine line) {
-        return line.hasOption(SKIPTEST);
-    }
-
-    public static boolean printHelpOnly(CommandLine line) {
-        return line.hasOption(HELP);
-    }
-
-    public static boolean needToExport(CommandLine line) {
-        return line.hasOption(EXPORT);
-    }
-
-    public static boolean needUpdateUrl(CommandLine line) {
-        return line.hasOption(URL);
-    }
-
-    public static boolean calculateFromMindMap(CommandLine line) {
-        return line.hasOption(MINDMAP);
-    }
-
     public static void printHelpMessage(Options options, PrintStream printStream) {
         HelpFormatter formatter = new HelpFormatter();
         PrintWriter printWriter = new PrintWriter(printStream);
@@ -85,14 +64,6 @@ public class MindtOptionUtils {
                 null,
                 false);
         printWriter.flush(); //thanks to commons-cli
-    }
-
-    public static MindtActionParameters createFromLine(CommandLine line) {
-        return new MindtActionParameters(
-                line.getOptionValue(EXPORT),
-                line.getOptionValue(MINDMAP),
-                line.getOptionValue(SUITE),
-                line.getOptionValue(URL));
     }
 }
 
