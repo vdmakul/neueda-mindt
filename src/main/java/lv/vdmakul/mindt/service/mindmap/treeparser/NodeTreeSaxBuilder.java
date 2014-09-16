@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.mindmap.treeparser;
+package lv.vdmakul.mindt.service.mindmap.treeparser;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;

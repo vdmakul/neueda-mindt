@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.config;
+package lv.vdmakul.mindt.internal;
 
 import java.io.IOException;
 import java.util.Properties;

@@ -1,12 +1,12 @@
-package lv.vdmakul.mindt.mindmap.treeparser;
+package lv.vdmakul.mindt.service.mindmap.treeparser;
 
 import lv.vdmakul.mindt.domain.*;
 import lv.vdmakul.mindt.domain.builder.RequestBuilder;
 import lv.vdmakul.mindt.domain.builder.TestBuilder;
 import lv.vdmakul.mindt.domain.builder.TestPlanBuilder;
 import lv.vdmakul.mindt.domain.builder.TestSuiteBuilder;
-import lv.vdmakul.mindt.mindmap.MindMapParser;
-import lv.vdmakul.mindt.mindmap.MindMapParsingException;
+import lv.vdmakul.mindt.service.mindmap.MindMapParser;
+import lv.vdmakul.mindt.service.mindmap.MindMapParsingException;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;

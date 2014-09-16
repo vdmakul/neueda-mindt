@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.calculation;
+package lv.vdmakul.mindt.service.calculation;
 
 
 import lv.vdmakul.mindt.domain.EvaluationResult;

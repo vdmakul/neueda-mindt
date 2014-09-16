@@ -1,14 +1,14 @@
 package lv.vdmakul.mindt.console;
 
-import lv.vdmakul.mindt.calculation.CalculationService;
-import lv.vdmakul.mindt.calculation.NeuedaCalculationService;
-import lv.vdmakul.mindt.config.MindtProperties;
 import lv.vdmakul.mindt.console.options.MindtOption;
 import lv.vdmakul.mindt.console.options.OptionsHelper;
 import lv.vdmakul.mindt.console.options.OptionsResolver;
-import lv.vdmakul.mindt.mindmap.treeparser.MindMapTreeParser;
+import lv.vdmakul.mindt.internal.MindtProperties;
 import lv.vdmakul.mindt.service.MindtFacade;
-import lv.vdmakul.mindt.testing.TestResult;
+import lv.vdmakul.mindt.service.calculation.CalculationService;
+import lv.vdmakul.mindt.service.calculation.NeuedaCalculationService;
+import lv.vdmakul.mindt.service.mindmap.treeparser.MindMapTreeParser;
+import lv.vdmakul.mindt.service.testing.TestResult;
 
 import java.io.PrintStream;
 import java.util.List;

@@ -1,11 +1,11 @@
 package lv.vdmakul.mindt.service;
 
-import lv.vdmakul.mindt.calculation.CalculationService;
 import lv.vdmakul.mindt.domain.TestPlan;
-import lv.vdmakul.mindt.infrastructure.FileUtils;
-import lv.vdmakul.mindt.mindmap.treeparser.MindMapTreeParser;
-import lv.vdmakul.mindt.testing.TestExecutor;
-import lv.vdmakul.mindt.testing.TestResult;
+import lv.vdmakul.mindt.internal.infrastructure.FileUtils;
+import lv.vdmakul.mindt.service.calculation.CalculationService;
+import lv.vdmakul.mindt.service.mindmap.treeparser.MindMapTreeParser;
+import lv.vdmakul.mindt.service.testing.TestExecutor;
+import lv.vdmakul.mindt.service.testing.TestResult;
 
 import java.io.InputStream;
 import java.util.List;

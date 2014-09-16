@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.mindmap.treeparser;
+package lv.vdmakul.mindt.service.mindmap.treeparser;
 
 import org.junit.Before;
 import org.junit.Test;

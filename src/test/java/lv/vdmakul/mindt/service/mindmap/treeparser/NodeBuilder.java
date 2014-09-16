@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.mindmap.treeparser;
+package lv.vdmakul.mindt.service.mindmap.treeparser;
 
 import java.util.ArrayList;
 import java.util.List;

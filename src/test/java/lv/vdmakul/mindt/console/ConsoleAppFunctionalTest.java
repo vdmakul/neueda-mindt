@@ -1,7 +1,7 @@
 package lv.vdmakul.mindt.console;
 
-import lv.vdmakul.mindt.calculation.LocalCalculationService;
-import lv.vdmakul.mindt.calculation.NeuedaCalculationService;
+import lv.vdmakul.mindt.service.calculation.LocalCalculationService;
+import lv.vdmakul.mindt.service.calculation.NeuedaCalculationService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

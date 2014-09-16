@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.mindmap.treeparser;
+package lv.vdmakul.mindt.service.mindmap.treeparser;
 
 import lv.vdmakul.mindt.domain.TestPlan;
 import lv.vdmakul.mindt.domain.test.ProvidedTestPlanBuilder;

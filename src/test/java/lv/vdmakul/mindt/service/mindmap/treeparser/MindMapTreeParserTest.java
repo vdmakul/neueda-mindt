@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.mindmap.treeparser;
+package lv.vdmakul.mindt.service.mindmap.treeparser;
 
 import lv.vdmakul.mindt.domain.TestPlan;
 import lv.vdmakul.mindt.domain.TestSuite;
@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static lv.vdmakul.mindt.mindmap.treeparser.NodeBuilder.aNode;
+import static lv.vdmakul.mindt.service.mindmap.treeparser.NodeBuilder.aNode;
 
 public class MindMapTreeParserTest {
 

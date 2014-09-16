@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.mindmap;
+package lv.vdmakul.mindt.service.mindmap;
 
 
 import lv.vdmakul.mindt.domain.TestPlan;
