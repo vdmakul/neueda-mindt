@@ -7,6 +7,7 @@ import lv.vdmakul.mindt.domain.builder.TestPlanBuilder;
 import lv.vdmakul.mindt.domain.builder.TestSuiteBuilder;
 import lv.vdmakul.mindt.service.mindmap.MindMapParser;
 import lv.vdmakul.mindt.service.mindmap.MindMapParsingException;
+import org.springframework.stereotype.Service;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -18,6 +19,7 @@ import static lv.vdmakul.mindt.domain.builder.TestBuilder.aTest;
 import static lv.vdmakul.mindt.domain.builder.TestPlanBuilder.aTestPlan;
 import static lv.vdmakul.mindt.domain.builder.TestSuiteBuilder.aTestSuite;
 
+@Service
 public class MindMapTreeParser implements MindMapParser {
 
     @Override

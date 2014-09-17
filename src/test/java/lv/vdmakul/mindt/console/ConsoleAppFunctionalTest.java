@@ -1,11 +1,17 @@
 package lv.vdmakul.mindt.console;
 
+import lv.vdmakul.mindt.service.MindtFacade;
+import lv.vdmakul.mindt.service.calculation.CalculationService;
 import lv.vdmakul.mindt.service.calculation.LocalCalculationService;
-import lv.vdmakul.mindt.service.calculation.NeuedaCalculationService;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +19,19 @@ import java.io.PrintStream;
 
 import static org.mockito.Mockito.verify;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {ConsoleApp.ConsoleAppConfig.class, ConsoleAppFunctionalTest.TestConfiguration.class})
 public class ConsoleAppFunctionalTest {
+
+    @Configuration
+    protected static class TestConfiguration {
+        @Bean
+        public CalculationService calculationService() {
+            return new LocalCalculationService();
+        }
+    }
+
+    @Autowired private MindtFacade mindtFacade;
 
     private ConsoleApp consoleApp;
     private PrintStream printStream;
@@ -21,7 +39,7 @@ public class ConsoleAppFunctionalTest {
     @Before
     public void setUp() {
         printStream = Mockito.spy(System.out);
-        consoleApp = new ConsoleApp(new LocalCalculationService(), printStream);
+        consoleApp = new ConsoleApp(mindtFacade, printStream);
     }
 
     private void callWithArgs(String... args) {
@@ -84,14 +102,5 @@ public class ConsoleAppFunctionalTest {
         callWithArgs("-help");
         //cannot test the output, commons-cli lib very sophisticated
 //        verify(printStream).println("usage: neueda-mindt");
-    }
-
-    @Test
-    @Ignore
-    public void callRealNeuedaService() {
-        consoleApp = new ConsoleApp(new NeuedaCalculationService(), printStream);
-        callWithArgs("-mindmap", "src/test/resources/calc_tests.mm");
-        verify(printStream).println("9 tests have been executed");
-        verify(printStream).println("All tests passed");
     }
 }

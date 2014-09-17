@@ -5,26 +5,36 @@ import lv.vdmakul.mindt.console.options.OptionsHelper;
 import lv.vdmakul.mindt.console.options.OptionsResolver;
 import lv.vdmakul.mindt.internal.MindtProperties;
 import lv.vdmakul.mindt.service.MindtFacade;
-import lv.vdmakul.mindt.service.calculation.CalculationService;
-import lv.vdmakul.mindt.service.calculation.NeuedaCalculationService;
-import lv.vdmakul.mindt.service.mindmap.treeparser.MindMapTreeParser;
 import lv.vdmakul.mindt.service.testing.TestResult;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.PrintStream;
 import java.util.List;
 
 public class ConsoleApp {
 
+    @Configuration
+    @ComponentScan("lv.vdmakul.mindt.service")
+    protected static class ConsoleAppConfig {}
+
     private final PrintStream printStream;
     private final MindtFacade mindtFacade;
 
     public static void main(String[] args) {
-        new ConsoleApp(new NeuedaCalculationService(), System.out).runWithArgs(args);
+        SpringApplication application = new SpringApplicationBuilder(ConsoleAppConfig.class).application();
+        application.setShowBanner(false);
+        try (ConfigurableApplicationContext context = application.run(args)) {
+            new ConsoleApp(context.getBean(MindtFacade.class), System.out).runWithArgs(args);
+        }
     }
 
-    public ConsoleApp(CalculationService calculationService, PrintStream printStream) {
+    public ConsoleApp(MindtFacade mindtFacade, PrintStream printStream) {
         this.printStream = printStream;
-        this.mindtFacade = new MindtFacade(new MindMapTreeParser(), calculationService);
+        this.mindtFacade = mindtFacade;
     }
 
     protected void runWithArgs(String[] args) {

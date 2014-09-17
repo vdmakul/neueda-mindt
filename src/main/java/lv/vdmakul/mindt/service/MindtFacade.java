@@ -2,23 +2,20 @@ package lv.vdmakul.mindt.service;
 
 import lv.vdmakul.mindt.domain.TestPlan;
 import lv.vdmakul.mindt.internal.infrastructure.FileUtils;
-import lv.vdmakul.mindt.service.calculation.CalculationService;
 import lv.vdmakul.mindt.service.mindmap.MindMapParser;
 import lv.vdmakul.mindt.service.testing.TestExecutor;
 import lv.vdmakul.mindt.service.testing.TestResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.util.List;
 
+@Service
 public class MindtFacade {
 
-    public final MindMapParser mindMapParser;
-    public final TestExecutor testExecutor;
-
-    public MindtFacade(MindMapParser mindMapParser, CalculationService calculationService) {
-        this.mindMapParser = mindMapParser;
-        this.testExecutor = new TestExecutor(calculationService);
-    }
+    @Autowired private MindMapParser mindMapParser;
+    @Autowired private TestExecutor testExecutor;
 
     public void exportTestPlan(String mindMapFileName, String exportFileName) {
         InputStream inputStream = FileUtils.asInputStream(mindMapFileName);

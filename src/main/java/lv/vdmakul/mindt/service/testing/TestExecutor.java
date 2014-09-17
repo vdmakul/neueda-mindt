@@ -5,17 +5,16 @@ import lv.vdmakul.mindt.domain.Request;
 import lv.vdmakul.mindt.domain.Test;
 import lv.vdmakul.mindt.domain.TestSuite;
 import lv.vdmakul.mindt.service.calculation.CalculationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class TestExecutor {
 
-    private final CalculationService calculationService; //todo use different injection?
-
-    public TestExecutor(CalculationService calculationService) {
-        this.calculationService = calculationService;
-    }
+    @Autowired private CalculationService calculationService;
 
     public List<TestResult> execute(List<TestSuite> testSuites) {
         return testSuites.stream()
