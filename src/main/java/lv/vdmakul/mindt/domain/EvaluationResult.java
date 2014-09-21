@@ -96,10 +96,10 @@ public class EvaluationResult {
 
     @Override
     public String toString() {
-        return "EvaluationResult{" +
-                "value=" + value +
-                ", nonValue='" + nonValue + '\'' +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
+        if (isError() || isNan()) {
+            return nonValue;
+        } else {
+            return "" + value;
+        }
     }
 }
