@@ -9,8 +9,11 @@ import lv.vdmakul.mindt.service.testing.TestResult;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import java.io.PrintStream;
 import java.util.List;
@@ -19,7 +22,13 @@ public class ConsoleApp {
 
     @Configuration
     @ComponentScan("lv.vdmakul.mindt.service")
-    protected static class ConsoleAppConfig {}
+    @PropertySource("classpath:/application.properties")
+    protected static class ConsoleAppConfig {
+        @Bean
+        public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+            return new PropertySourcesPlaceholderConfigurer();
+        }
+    }
 
     private final PrintStream printStream;
     private final MindtFacade mindtFacade;

@@ -11,6 +11,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'spring-boot'
+//apply plugin: 'jetty'
 
 version = '0.1'
 
@@ -31,8 +32,12 @@ dependencies {
     compile 'commons-cli:commons-cli:1.2'
     compile 'org.apache.commons:commons-lang3:3.3.2'
 
-//    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+//    compile 'org.springframework.boot:spring-boot-starter'
+//    compile 'org.eclipse.jetty:jetty-server:9.2.2.v20140723'
+
+    compile 'org.slf4j:slf4j-api:1.7.7'
+
 
     testCompile 'junit:junit:4.11'
     testCompile 'org.mockito:mockito-all:1.9.5'

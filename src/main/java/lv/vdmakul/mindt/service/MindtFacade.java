@@ -29,7 +29,11 @@ public class MindtFacade {
 
     public List<TestResult> testByPlanFromMindMap(String mindMapFileName) {
         InputStream inputStream = FileUtils.asInputStream(mindMapFileName);
-        return testBy(mindMapParser.parseMindMap(inputStream));
+        return testByPlanFromMindMap(inputStream);
+    }
+
+    public List<TestResult> testByPlanFromMindMap(InputStream mindMapInputStream) {
+        return testBy(mindMapParser.parseMindMap(mindMapInputStream));
     }
 
     private List<TestResult> testBy(TestPlan testPlan) {
