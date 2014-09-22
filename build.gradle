@@ -11,7 +11,6 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'spring-boot'
-//apply plugin: 'jetty'
 
 version = '0.1'
 
@@ -26,15 +25,33 @@ mainClassName = "lv.vdmakul.mindt.console.ConsoleApp"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+configurations {
+    cucumberRuntime {
+        extendsFrom testRuntime
+    }
+}
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--format', 'pretty', '--glue', 'lv.vdmakul.mindt.service.cucumber', System.properties['mindt.features']]
+        }
+    }
+}
+
 dependencies {
     compile 'org.springframework:spring-web:4.1.0.RELEASE'
     compile 'com.google.code.gson:gson:2.3'
     compile 'commons-cli:commons-cli:1.2'
     compile 'org.apache.commons:commons-lang3:3.3.2'
 
+    testCompile 'info.cukes:cucumber-java:1.1.8'
+    testCompile 'info.cukes:cucumber-junit:1.1.8'
+
     compile 'org.springframework.boot:spring-boot-starter-web'
-//    compile 'org.springframework.boot:spring-boot-starter'
-//    compile 'org.eclipse.jetty:jetty-server:9.2.2.v20140723'
 
     compile 'org.slf4j:slf4j-api:1.7.7'
 

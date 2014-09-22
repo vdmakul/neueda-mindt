@@ -17,6 +17,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import java.io.PrintStream;
 import java.util.List;
+import java.util.Set;
 
 public class ConsoleApp {
 
@@ -61,10 +62,19 @@ public class ConsoleApp {
             return;
         }
         if (optionsResolver.isSet(MindtOption.EXPORT)) {
-            mindtFacade.exportTestPlan(
-                    optionsResolver.get(MindtOption.MINDMAP),
-                    optionsResolver.get(MindtOption.EXPORT));
-            print("Test Suite successfully exported");
+            if (MindtOption.FORMAT_GHERKIN.equals(optionsResolver.get(MindtOption.FORMAT))) {
+                Set<String> featureFiles = mindtFacade.exportTestPlanAsFeature(
+                        optionsResolver.get(MindtOption.MINDMAP),
+                        optionsResolver.get(MindtOption.EXPORT));
+                print("Test Suite successfully exported in " + featureFiles.size() + " file(s)");
+                featureFiles.forEach(this::print);
+            } else {
+                mindtFacade.exportTestPlan(
+                        optionsResolver.get(MindtOption.MINDMAP),
+                        optionsResolver.get(MindtOption.EXPORT));
+                print("Test Suite successfully exported");
+            }
+
         }
         if (optionsResolver.isSet(MindtOption.SKIPTEST)) {
             print("Tests were skipped");
@@ -78,7 +88,13 @@ public class ConsoleApp {
         if (optionsResolver.isSet(MindtOption.MINDMAP)) {
             results = mindtFacade.testByPlanFromMindMap(optionsResolver.get(MindtOption.MINDMAP));
         } else {
-            results = mindtFacade.testByPlanFromFile(optionsResolver.get(MindtOption.SUITE));
+            if (MindtOption.FORMAT_GHERKIN.equals(optionsResolver.get(MindtOption.FORMAT))) {
+                List<String> output = mindtFacade.testByGherkinScenarios(optionsResolver.get(MindtOption.SUITE));
+                output.forEach(this::print);
+                return;
+            } else {
+                results = mindtFacade.testByPlanFromFile(optionsResolver.get(MindtOption.SUITE));
+            }
         }
         printResults(results);
     }

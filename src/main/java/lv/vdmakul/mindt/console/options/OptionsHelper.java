@@ -4,6 +4,8 @@ import org.apache.commons.cli.*;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static lv.vdmakul.mindt.console.options.MindtOption.*;
 
@@ -11,12 +13,13 @@ public class OptionsHelper {
 
     public static Options createDefaultOptions() {
         Options options = new Options();
-        options.addOption(MINDMAP,  true,  "path to mindmap file to be used for test");
-        options.addOption(SUITE,    true,  "path to exported suite file to be used for test");
-        options.addOption(EXPORT,   true,  "export suite file");
-        options.addOption(URL,      true,  "URL of Calculator to test");
+        options.addOption(MINDMAP, true, "path to mindmap file to be used for test");
+        options.addOption(SUITE, true, "path to exported suite file to be used for test");
+        options.addOption(EXPORT, true, "export suite file");
+        options.addOption(FORMAT, true, "format of exported file: supported " + FORMAT_JSON + " and " + FORMAT_GHERKIN);
+        options.addOption(URL, true, "URL of Calculator to test");
         options.addOption(SKIPTEST, false, "skip Calculator test");
-        options.addOption(HELP,     false, "show this help");
+        options.addOption(HELP, false, "show this help");
         return options;
     }
 
@@ -29,16 +32,44 @@ public class OptionsHelper {
             throw new OptionsParsingException(e.getMessage());
         }
 
-        if (line.hasOption(HELP) ) {
+        if (line.hasOption(HELP)) {
             return line;
         }
 
         if (line.hasOption(EXPORT) && !line.hasOption(MINDMAP)) {
-            throw new OptionsParsingException("-mindmap option must be specified");
+            throw new OptionsParsingException("-" + MINDMAP + " option must be specified");
         }
 
         if (line.hasOption(EXPORT) && line.hasOption(SUITE)) {
-            throw new OptionsParsingException("-export option is not compatible with -suite option");
+            throw new OptionsParsingException("-" + EXPORT + " option is not compatible with -" + SUITE + " option");
+        }
+
+        if ((line.hasOption(EXPORT) || line.hasOption(SUITE)) && !line.hasOption(FORMAT)) {
+            throw new OptionsParsingException("-" + FORMAT + " must be specified");
+        }
+
+        if (line.hasOption(FORMAT)) {
+            String formatValue = line.getOptionValue(FORMAT);
+            if (!FORMAT_GHERKIN.equals(formatValue) && !FORMAT_JSON.equals(formatValue)) {
+                throw new OptionsParsingException("format " + formatValue + " is not supported");
+            }
+        }
+
+        //fixme file checking looks untestable in effective way
+        if (line.hasOption(SUITE)) {
+            String formatValue = line.getOptionValue(FORMAT);
+            String path = line.getOptionValue(SUITE);
+            if (FORMAT_GHERKIN.equals(formatValue)) {
+                if (!Files.isDirectory(Paths.get(path))) {
+                    throw new OptionsParsingException(path + " is not a directory or does not exist");
+                }
+            } else {
+                if (!Files.exists(Paths.get(path))) {
+                    throw new OptionsParsingException(path + " does not exist");
+                } else if (Files.isDirectory(Paths.get(path))) {
+                    throw new OptionsParsingException(path + " is directory");
+                }
+            }
         }
 
         if (line.hasOption(SKIPTEST)) {
