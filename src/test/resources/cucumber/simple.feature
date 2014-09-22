@@ -1,4 +1,4 @@
-Feature: Multiplication
+  Feature: Multiplication
 
   Background: A Calculator
     Given A local calculator

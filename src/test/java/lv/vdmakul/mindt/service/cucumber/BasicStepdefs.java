@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.service.testing.bdd;
+package lv.vdmakul.mindt.service.cucumber;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.Before;
@@ -14,7 +14,7 @@ import org.junit.Assert;
 
 import java.math.BigDecimal;
 
-public class CalculatorSteps {
+public class BasicStepdefs {
 
     private Scenario scenario;
 
@@ -44,18 +44,18 @@ public class CalculatorSteps {
         this.path = path;
     }
 
-    @Given("^request method is (\\w+)$")
+    @Given("^request method is \"(.*?)\"$")
     public void requestMethod(String method) {
         this.method = method;
     }
 
-    @When("^I multiply (\\d+) and (\\d+)$")
-    public void multiply(BigDecimal var1, BigDecimal var2) throws Throwable {
+    @When("^I (\\w*) ([\\-\\d\\.]*) and ([\\-\\d\\.]*)$")
+    public void calculate(String operation, String var1, String var2) throws Throwable {
         Request request = new Request(method, path);
-        this.actual = calculationService.calculate(request, var1, var2);
+        this.actual = calculationService.calculate(request, new BigDecimal(var1), new BigDecimal(var2));
     }
 
-    @Then("^result is ([\\w\\.]*)$")
+    @Then("^result is (.*)$")
     public void assertResult(String result) {
         EvaluationResult expected = EvaluationResult.valueOf(result);
         Assert.assertEquals(scenario.getName(), expected, actual);
