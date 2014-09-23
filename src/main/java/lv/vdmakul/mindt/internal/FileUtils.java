@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.internal.infrastructure;
+package lv.vdmakul.mindt.internal;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

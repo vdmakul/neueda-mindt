@@ -1,6 +1,5 @@
 package lv.vdmakul.mindt.domain;
 
-import com.google.gson.Gson;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -15,15 +14,6 @@ public class TestPlan {
     public TestPlan(List<TestSuite> testSuites) {
         this.testSuites = Collections.unmodifiableList(testSuites);
     }
-
-    public String asJson() {
-        return new Gson().toJson(this);
-    }
-
-    public static TestPlan fromJson(String json) {
-        return new Gson().fromJson(json, TestPlan.class);
-    }
-
 
     @Override
     public boolean equals(Object o) {

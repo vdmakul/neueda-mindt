@@ -20,32 +20,14 @@ repositories {
     maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
 }
 
-mainClassName = "lv.vdmakul.mindt.console.ConsoleApp"
+mainClassName = "lv.vdmakul.mindt.rest.WebApp"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-configurations {
-    cucumberRuntime {
-        extendsFrom testRuntime
-    }
-}
-
-task cucumber() {
-    dependsOn assemble, compileTestJava
-    doLast {
-        javaexec {
-            main = "cucumber.api.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = ['--format', 'pretty', '--glue', 'lv.vdmakul.mindt.service.cucumber', System.properties['mindt.features']]
-        }
-    }
-}
-
 dependencies {
     compile 'org.springframework:spring-web:4.1.0.RELEASE'
     compile 'com.google.code.gson:gson:2.3'
-    compile 'commons-cli:commons-cli:1.2'
     compile 'org.apache.commons:commons-lang3:3.3.2'
 
     compile 'info.cukes:cucumber-java:1.1.8'

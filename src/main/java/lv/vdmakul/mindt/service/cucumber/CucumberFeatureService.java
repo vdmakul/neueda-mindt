@@ -3,7 +3,7 @@ package lv.vdmakul.mindt.service.cucumber;
 import lv.vdmakul.mindt.domain.Test;
 import lv.vdmakul.mindt.domain.TestPlan;
 import lv.vdmakul.mindt.domain.TestSuite;
-import lv.vdmakul.mindt.internal.infrastructure.FileUtils;
+import lv.vdmakul.mindt.internal.FileUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

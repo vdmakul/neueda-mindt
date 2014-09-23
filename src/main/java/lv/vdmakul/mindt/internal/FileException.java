@@ -1,4 +1,4 @@
-package lv.vdmakul.mindt.internal.infrastructure;
+package lv.vdmakul.mindt.internal;
 
 public class FileException extends RuntimeException {
 

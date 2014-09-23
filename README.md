@@ -5,15 +5,12 @@ Neueda homework: test automation solution using mind maps
 
 Usage
 -----
-To build the console application execute (in the root): 
+To start a web server execute (in the project root):
+ 
+* for Unix: *gradlew run*
+* for Windows *gradlew.bat run*
 
-* for Unix: *gradlew installApp*
-* for Windows *gradlew.bat installApp*
-
-To run the console application execute (in the root) and follow the built-in help:
-
-* for Unix: *build/install/neueda-mindt/bin/neueda-mindt -help*
-* for Windows *build/install/neueda-mindt/bin/neueda-mindt.bat -help*
+Open the link ***http://localhost:8080/*** in browser.
 
 Requirements
 ------------

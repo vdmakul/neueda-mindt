@@ -1,6 +1,6 @@
 package lv.vdmakul.mindt.service.cucumber;
 
-import lv.vdmakul.mindt.internal.infrastructure.FileUtils;
+import lv.vdmakul.mindt.internal.FileUtils;
 import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
