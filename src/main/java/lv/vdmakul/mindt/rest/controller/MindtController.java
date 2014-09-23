@@ -40,8 +40,8 @@ public class MindtController {
         }
     }
 
-    @RequestMapping(value = "/feature/test", method = RequestMethod.POST)
-    public String runFeature(@RequestParam("feature") String feature) {
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public String testFeature(@RequestParam("feature") String feature) {
         return cucumberTestWrapper.internalTestByCucumber(feature);
     }
 
