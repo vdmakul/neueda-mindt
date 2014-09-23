@@ -7,13 +7,21 @@
 
     <style>
         textarea {
-        resize: none;
-        width: 400px;
-        min-width:400px;
+            resize: none;
+            width: 400px;
+            min-width: 400px;
 
-        height:300px;
-        min-height:300px;
-        max-height:300px;
+            height: 300px;
+            min-height: 300px;
+            max-height: 300px;
+        }
+
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            padding-left: 10px;
+            vertical-align:top;
         }
     </style>
 
@@ -115,21 +123,28 @@
     <script id="featureTemplate" type="text/html">
         <table>
             <tr>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Email</th>
+                <th>Feature</th>
+                <th></th>
+                <th>Test result</th>
             </tr>
             <% for(var i = 0; i < featureList.length; i++){ %>
             <tr>
                 <td>
-                    <textarea id="featureArea<%= i %>"><%= featureList[i] %></textarea>
+                    <div>
+                        <div><textarea id="featureArea<%= i %>"><%= featureList[i] %></textarea></div>
+                        <div><a href="data:text/plain;charset=UTF-8,<%= encodeURIComponent(featureList[i]) %>"
+                                download="some.feature">Download initial feature</a></div>
+                    </div>
                 </td>
                 <td>
-                    <button onclick="clickTest('inProgress<%= i %>', 'resultArea<%= i %>', 'featureArea<%= i %>');">Test</button>
+                    <button onclick="clickTest('inProgress<%= i %>', 'resultArea<%= i %>', 'featureArea<%= i %>');">
+                        Test
+                    </button>
                 </td>
                 <td>
                     <div id="inProgress<%= i %>" style="display: none;">Processing...</div>
-                    <textarea id="resultArea<%= i %>" style="display: none; resize: horizontal;" readonly="true"></textarea>
+                    <textarea id="resultArea<%= i %>" style="display: none; resize: horizontal;"
+                              readonly="true"></textarea>
                 </td>
             </tr>
             <% } %>
@@ -143,12 +158,14 @@
 <body>
 
 <h1>Calculator Testing page</h1>
+
 <form method="POST" enctype="multipart/form-data">
     Select MindMap to test<br/><input type="file" id="file" name="file" onchange="generateFeatures()">
     <br/>
 </form>
 <div id="tableInProgress" style="display: none;">Processing...</div>
 <div id="errorMessage" style="display: none;"></div>
+
 
 <div id="workingArea"></div>
 
