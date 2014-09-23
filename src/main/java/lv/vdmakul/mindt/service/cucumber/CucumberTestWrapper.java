@@ -6,51 +6,45 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 
 @Service
 public class CucumberTestWrapper {
 
     private static final Object lock = new Object();
 
-    public List<String> externallyTestByCucumber(String featureFolder) {
+    public String internalTestByCucumber(String featureContent) {
+        File tempFile = null;
         try {
-            Runtime rt = Runtime.getRuntime();
-            Process proc = rt.exec("./gradlew cucumber -Dmindt.features=" + featureFolder + "");
+            tempFile = FileUtils.createTempFile("test", ".feature");
+            FileUtils.saverToFile(featureContent, tempFile.getAbsolutePath());
 
-            BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            Result result = runCucumber(tempFile.getAbsolutePath());
 
-            ArrayList<String> output = new ArrayList<>();
+            return createTestResultMessage(result);
 
-            String line;
-            while ((line = stdInput.readLine()) != null) {
-                output.add(line);
+        } finally {
+            if (tempFile != null) {
+                tempFile.delete();
             }
-            return output;
-        } catch (IOException e) {
-            throw new RuntimeException(e); //todo specify exception class
         }
-
     }
 
-    public String internalTestByCucumber(String featureContent) {
-        Result result = null;
-        Path tempFile = null;
+    private Result runCucumber(String featurePath) {
+        Result result;
+        synchronized (lock) {
+            System.setProperty("cucumber.options", featurePath);
+            JUnitCore jUnitCore = new JUnitCore();
+            result = jUnitCore.run(BddCalculatorTestTemplate.class);
+        }
+        return result;
+    }
+
+    private String createTestResultMessage(Result result) {
         try {
-            tempFile = Files.createTempFile("test", ".feature");
-
-            FileUtils.saverToFile(featureContent, tempFile.toAbsolutePath());
-
-            synchronized (lock) {
-                System.setProperty("cucumber.options", tempFile.toAbsolutePath().toString());
-                JUnitCore jUnitCore = new JUnitCore();
-                result = jUnitCore.run(BddCalculatorTestTemplate.class);
-            }
-
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(baos);
             TextListener textListener = new TextListener(ps);
@@ -58,12 +52,7 @@ public class CucumberTestWrapper {
 
             return baos.toString("UTF-8");
         } catch (IOException e) {
-            throw new RuntimeException(e); //todo specify exception class
-        } finally {
-            if (tempFile != null) {
-                tempFile.toFile().delete();
-            }
+            throw new CucumberTestingException(e);
         }
     }
-
 }

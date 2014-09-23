@@ -14,6 +14,7 @@ import org.junit.Assert;
 
 import java.math.BigDecimal;
 
+@SuppressWarnings("unused")
 public class BasicStepdefs {
 
     private Scenario scenario;
@@ -60,6 +61,5 @@ public class BasicStepdefs {
         EvaluationResult expected = EvaluationResult.valueOf(result);
         Assert.assertEquals(scenario.getName(), expected, actual);
     }
-
 
 }

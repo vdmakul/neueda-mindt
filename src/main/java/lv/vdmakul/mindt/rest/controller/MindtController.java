@@ -14,9 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class MindtController {
@@ -36,8 +34,7 @@ public class MindtController {
                 throw new MindtException("Failed to process file: " + e.getMessage(), e);
             }
             TestPlan testPlan = mindMapParser.parseMindMap(mindMapInputStream);
-            Map<String, String> features = cucumberFeatureService.transformToFeatures(testPlan);
-            return new ArrayList<>(features.values());
+            return cucumberFeatureService.transformToFeatures(testPlan);
         } else {
             throw new MindtException("MindMap file is empty");
         }
