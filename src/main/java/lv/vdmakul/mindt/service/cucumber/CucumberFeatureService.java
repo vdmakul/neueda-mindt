@@ -26,7 +26,7 @@ public class CucumberFeatureService {
                 .collect(Collectors.toSet());
     }
 
-    private Map<String, String> transformToFeatures(TestPlan testPlan) {
+    public Map<String, String> transformToFeatures(TestPlan testPlan) {
         HashMap<String, String> features = new HashMap<>();
         for (TestSuite suite : testPlan.testSuites) {
             StringBuilder featureBuilder = new StringBuilder();

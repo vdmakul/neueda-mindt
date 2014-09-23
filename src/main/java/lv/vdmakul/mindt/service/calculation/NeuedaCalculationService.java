@@ -19,10 +19,18 @@ import java.math.BigDecimal;
 @Service
 public class NeuedaCalculationService implements CalculationService {
 
-    @Value("${service.calculator.url}")
+    @Value("${service.calculator.url}") //fixme property loading
     private String serviceUrl;
 
     private static final Logger logger = LoggerFactory.getLogger(NeuedaCalculationService.class);
+
+    public NeuedaCalculationService() {
+        this.serviceUrl = "http://neueda.jelastic.dogado.eu/calculator/"; //fixme property loading
+    }
+
+    public NeuedaCalculationService(String serviceUrl) {
+        this.serviceUrl = serviceUrl;
+    }
 
     @Override
     public EvaluationResult calculate(Request request, BigDecimal value1, BigDecimal value2) {

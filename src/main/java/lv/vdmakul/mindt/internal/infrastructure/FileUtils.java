@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileUtils {
@@ -20,8 +21,12 @@ public class FileUtils {
     }
 
     public static void saverToFile(String content, String fileName) {
+        saverToFile(content, Paths.get(fileName));
+    }
+
+    public static void saverToFile(String content, Path path) {
         try {
-            Files.write(Paths.get(fileName), content.getBytes(StandardCharsets.UTF_8));
+            Files.write(path, content.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new FileException(e.getMessage(), e);
         }

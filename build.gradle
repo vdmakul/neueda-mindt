@@ -48,15 +48,14 @@ dependencies {
     compile 'commons-cli:commons-cli:1.2'
     compile 'org.apache.commons:commons-lang3:3.3.2'
 
-    testCompile 'info.cukes:cucumber-java:1.1.8'
-    testCompile 'info.cukes:cucumber-junit:1.1.8'
+    compile 'info.cukes:cucumber-java:1.1.8'
+    compile 'info.cukes:cucumber-junit:1.1.8'
 
     compile 'org.springframework.boot:spring-boot-starter-web'
 
     compile 'org.slf4j:slf4j-api:1.7.7'
 
-
-    testCompile 'junit:junit:4.11'
+    compile 'junit:junit:4.11'
     testCompile 'org.mockito:mockito-all:1.9.5'
     testCompile 'org.springframework:spring-test:4.1.0.RELEASE'
 }

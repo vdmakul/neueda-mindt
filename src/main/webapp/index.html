@@ -1,0 +1,157 @@
+<html>
+<head>
+    <title>Calculator Testing page</title>
+
+    <script src="jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="underscore-1.7.0-min.js" type="text/javascript"></script>
+
+    <style>
+        textarea {
+        resize: none;
+        width: 400px;
+        min-width:400px;
+
+        height:300px;
+        min-height:300px;
+        max-height:300px;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        var currentFeatures;
+
+        function generateTable(featureList) {
+            currentFeatures = featureList;
+            var featureTemplate = _.template($('#featureTemplate').text());
+            var html = featureTemplate({'featureList': featureList});
+            $("#workingArea").html(html);
+        }
+
+        function generateFeatures() {
+            var formData = new FormData($('form')[0]);
+            $.ajax({
+                type: "POST",
+                url: "/generate",
+                enctype: 'multipart/form-data',
+                data: formData,
+                //Options to tell jQuery not to process data or worry about content-type.
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    hideError();
+                    $("#tableInProgress").show();
+                },
+                complete: function () {
+                    $("#tableInProgress").hide();
+                },
+                success: function (features) {
+                    generateTable(features);
+                },
+                error: function (xhr, status, error) {
+                    $("#tableInProgress").hide();
+                    showError("Error: " + status + " " + error + "(" + xhr.responseXML + ")");
+                }
+            });
+        }
+
+        function testFeature(feature, beforeSend, complete, success) {
+            $.ajax({
+                type: "POST",
+                url: "/feature/test?feature=" + feature,
+                enctype: 'text/plain',
+                //Options to tell jQuery not to process data or worry about content-type.
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    beforeSend();
+                },
+                complete: function () {
+                    complete();
+                },
+                success: function (data) {
+                    success(data);
+                },
+                error: function (xhr, status, error) {
+                    complete();
+                    showError("Error: " + status + " " + error + "(" + xhr.responseXML + ")");
+                }
+            });
+        }
+
+        function showError(errorText) {
+            var $errorMessage = $("#errorMessage");
+            $errorMessage.text(errorText);
+            $errorMessage.show();
+        }
+
+        function hideError() {
+            $("#errorMessage").hide();
+        }
+
+        function clickTest(inProgressId, resultAreaId, featureArea) {
+            $("#" + inProgressId).show();
+            testFeature(
+                    encodeURIComponent(document.getElementById(featureArea).value),
+                    function () {
+                        $("#" + inProgressId).show();
+                    },
+                    function () {
+                        $("#" + inProgressId).hide();
+                    },
+                    function (data) {
+                        $("#" + resultAreaId).text(data);
+                        $("#" + resultAreaId).show();
+                    }
+            );
+        }
+
+
+    </script>
+
+
+    <script id="featureTemplate" type="text/html">
+        <table>
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+            </tr>
+            <% for(var i = 0; i < featureList.length; i++){ %>
+            <tr>
+                <td>
+                    <textarea id="featureArea<%= i %>"><%= featureList[i] %></textarea>
+                </td>
+                <td>
+                    <button onclick="clickTest('inProgress<%= i %>', 'resultArea<%= i %>', 'featureArea<%= i %>');">Test</button>
+                </td>
+                <td>
+                    <div id="inProgress<%= i %>" style="display: none;">Processing...</div>
+                    <textarea id="resultArea<%= i %>" style="display: none; resize: horizontal;" readonly="true"></textarea>
+                </td>
+            </tr>
+            <% } %>
+        </table>
+
+    </script>
+
+
+</head>
+
+<body>
+
+<h1>Calculator Testing page</h1>
+<form method="POST" enctype="multipart/form-data">
+    Select MindMap to test<br/><input type="file" id="file" name="file" onchange="generateFeatures()">
+    <br/>
+</form>
+<div id="tableInProgress" style="display: none;">Processing...</div>
+<div id="errorMessage" style="display: none;"></div>
+
+<div id="workingArea"></div>
+
+
+</body>
+</html>
