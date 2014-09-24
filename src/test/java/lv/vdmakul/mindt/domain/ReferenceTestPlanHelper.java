@@ -1,7 +1,5 @@
-package lv.vdmakul.mindt.domain.test;
+package lv.vdmakul.mindt.domain;
 
-import lv.vdmakul.mindt.domain.EvaluationResult;
-import lv.vdmakul.mindt.domain.TestPlan;
 import lv.vdmakul.mindt.domain.builder.RequestBuilder;
 import lv.vdmakul.mindt.domain.builder.TestBuilder;
 
@@ -10,9 +8,42 @@ import java.math.BigDecimal;
 import static lv.vdmakul.mindt.domain.builder.TestPlanBuilder.aTestPlan;
 import static lv.vdmakul.mindt.domain.builder.TestSuiteBuilder.aTestSuite;
 
-public class ProvidedTestPlanBuilder {
+public class ReferenceTestPlanHelper {
 
-    public static TestPlan build() {
+    public final static String ADD_FEATURE = "Feature: Add\n" +
+            "\n" +
+            "Background: \n" +
+            "\tGiven A Neueda calculator\n" +
+            "\tAnd request path is \"/rest/add\"\n" +
+            "\tAnd request method is \"POST\"\n" +
+            "\n" +
+            "Scenario: simple addition\n" +
+            "\tWhen I enter 6 and 8\n" +
+            "\tThen result is 14\n" +
+            "\n" +
+            "Scenario: adding a negative number\n" +
+            "\tWhen I enter -5.34 and 3.95\n" +
+            "\tThen result is -1.39\n" +
+            "\n";
+
+    public final static String MULTIPLY_FEATURE = "Feature: Multiply\n" +
+            "\n" +
+            "Background: \n" +
+            "\tGiven A Neueda calculator\n" +
+            "\tAnd request path is \"/rest/multiply\"\n" +
+            "\tAnd request method is \"POST\"\n" +
+            "\n" +
+            "Scenario: simple multiplication\n" +
+            "\tWhen I enter 5 and 9\n" +
+            "\tThen result is 45\n" +
+            "\n" +
+            "Scenario: multiplying negatives\n" +
+            "\tWhen I enter -2.3 and -6.76\n" +
+            "\tThen result is 15.548\n" +
+            "\n";
+
+
+    public static TestPlan referenceTestPlan() {
         return aTestPlan()
                 .withTestSuite(aTestSuite()
                         .withName("Multiply")

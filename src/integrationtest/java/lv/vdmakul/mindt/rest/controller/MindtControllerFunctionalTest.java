@@ -1,5 +1,6 @@
 package lv.vdmakul.mindt.rest.controller;
 
+import lv.vdmakul.mindt.domain.ReferenceTestPlanHelper;
 import lv.vdmakul.mindt.rest.WebApp;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,8 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {WebApp.class})
 @WebAppConfiguration
-public class MindtControllerTest {
-
+public class MindtControllerFunctionalTest {
 
     MockMvc mockMvc;
 
@@ -39,13 +39,13 @@ public class MindtControllerTest {
         MockitoAnnotations.initMocks(this);
 
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-
     }
 
     @Test
     public void shouldTestFeature() throws Exception {
+        String localAddFeature = ReferenceTestPlanHelper.ADD_FEATURE.replace("Neueda", "local");
         mockMvc.perform(
-                post("/test?feature=" + ADD_FEATURE).accept(MediaType.APPLICATION_JSON))
+                post("/test?feature=" + localAddFeature).accept(MediaType.APPLICATION_JSON))
 //                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("OK (12 tests)")))
@@ -54,8 +54,9 @@ public class MindtControllerTest {
 
     @Test
     public void shouldNotTestFeatureOnGET() throws Exception {
+        String localAddFeature = ReferenceTestPlanHelper.ADD_FEATURE.replace("Neueda", "local");
         mockMvc.perform(
-                get("/test?feature=" + ADD_FEATURE).accept(MediaType.APPLICATION_JSON))
+                get("/test?feature=" + localAddFeature).accept(MediaType.APPLICATION_JSON))
 //                .andDo(print())
                 .andExpect(status().is(HttpStatus.METHOD_NOT_ALLOWED.value()));
     }
@@ -72,7 +73,7 @@ public class MindtControllerTest {
     public void shouldGenerateFeatures() throws Exception {
         mockMvc.perform(
                 fileUpload("/generate")
-                        .file("file", Files.readAllBytes(Paths.get("src/test/resources/calc_tests.mm"))))
+                        .file("file", Files.readAllBytes(Paths.get("src/integrationtest/resources/calc_tests.mm"))))
 //                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Feature: Add")))
@@ -80,20 +81,4 @@ public class MindtControllerTest {
                 .andExpect(content().string(containsString("Feature: Multiply")))
                 .andExpect(content().string(containsString("Feature: Divide")));
     }
-
-    private final static String ADD_FEATURE = "Feature: Add\n" +
-            "\n" +
-            "Background: \n" +
-            "\tGiven A local calculator\n" +
-            "\tAnd request path is \"/rest/add\"\n" +
-            "\tAnd request method is \"POST\"\n" +
-            "\n" +
-            "Scenario: simple addition\n" +
-            "\tWhen I enter 6 and 8\n" +
-            "\tThen result is 14\n" +
-            "\n" +
-            "Scenario: adding a negative number\n" +
-            "\tWhen I enter -5.34 and 3.95\n" +
-            "\tThen result is -1.39\n" +
-            "\n";
 }
