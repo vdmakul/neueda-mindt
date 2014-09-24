@@ -96,8 +96,10 @@ public class EvaluationResult {
 
     @Override
     public String toString() {
-        if (isError() || isNan()) {
+        if (isNan()) {
             return nonValue;
+        } else if (isError()) {
+            return nonValue + ": " + errorMessage;
         } else {
             return "" + value;
         }

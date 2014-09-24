@@ -10,6 +10,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Service
 public class CucumberTestWrapper {
@@ -50,7 +52,17 @@ public class CucumberTestWrapper {
             TextListener textListener = new TextListener(ps);
             textListener.testRunFinished(result);
 
-            return baos.toString("UTF-8");
+            String rawResult = baos.toString("UTF-8");
+
+            String[] lines = rawResult.split("\\r?\\n");
+            return Arrays.asList(lines).stream()
+                    .filter(l -> !l.contains("at "))
+                    .filter(l -> !l.contains("Error parsing feature file"))
+                    .map(l -> l.replace("java.lang.AssertionError", "Failure"))
+                    .map(l -> l.replace("Caused by: gherkin.lexer.LexingError:", ""))
+                    .map(l -> l.replace("(" + BddCalculatorTestTemplate.class.getName() + ")", ""))
+                    .map(l -> l.replace("initializationError", "Initialization Error"))
+                    .collect(Collectors.joining("\r\n"));
         } catch (IOException e) {
             throw new CucumberTestingException(e);
         }
