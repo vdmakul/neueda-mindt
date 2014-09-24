@@ -10,9 +10,11 @@ import lv.vdmakul.mindt.domain.Request;
 import lv.vdmakul.mindt.service.calculation.CalculationService;
 import lv.vdmakul.mindt.service.calculation.LocalCalculationService;
 import lv.vdmakul.mindt.service.calculation.NeuedaCalculationService;
-import org.junit.Assert;
 
 import java.math.BigDecimal;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @SuppressWarnings("unused")
 public class BasicStepdefs {
@@ -40,6 +42,11 @@ public class BasicStepdefs {
         this.calculationService = new NeuedaCalculationService();
     }
 
+    @Given("^An external calculator by url (\\w*) $")
+    public void externalCalculator(String url) throws Throwable {
+        this.calculationService = new NeuedaCalculationService(url);
+    }
+
     @Given("^request path is \"(.*?)\"$")
     public void requestPath(String path) {
         this.path = path;
@@ -52,14 +59,20 @@ public class BasicStepdefs {
 
     @When("^I (\\w*) ([\\-\\d\\.]*) and ([\\-\\d\\.]*)$")
     public void calculate(String operation, String var1, String var2) throws Throwable {
+        assertNotNull("calculator must be specified", calculationService);
+        assertNotNull("request method must be specified", method);
+        assertNotNull("request path must be specified", path);
+
         Request request = new Request(method, path);
         this.actual = calculationService.calculate(request, new BigDecimal(var1), new BigDecimal(var2));
     }
 
     @Then("^result is (.*)$")
     public void assertResult(String result) {
+        assertNotNull("operation is not specified", actual);
+
         EvaluationResult expected = EvaluationResult.valueOf(result);
-        Assert.assertEquals(scenario.getName(), expected, actual);
+        assertEquals(scenario.getName(), expected, actual);
     }
 
 }
